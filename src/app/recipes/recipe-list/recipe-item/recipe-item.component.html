@@ -1,0 +1,18 @@
+<a
+  [routerLink]="['/recipes', index]"
+  class="list-group-item d-flex justify-content-between"
+  routerLinkActive="active"
+>
+  <div>
+    <div class="list-group-item-heading">{{ recipe?.name }}</div>
+    <div class="list-group-item-text">{{ recipe?.description }}</div>
+  </div>
+  <span>
+    <img
+      src="{{ recipe?.imagePath }}"
+      alt="{{ recipe?.name }}"
+      class="img-responsive"
+      style="max-height: 50px"
+    />
+  </span>
+</a>
