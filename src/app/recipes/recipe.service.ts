@@ -7,24 +7,30 @@ import { Subject } from 'rxjs';
 @Injectable()
 export class RecipeService {
   constructor(private shoppingListService: ShoppingListService) {}
-  private recipes: Recipe[] = [
-    new Recipe(
-      'A test recipe',
-      'This is for test',
-      'https://preppykitchen.com/wp-content/uploads/2021/07/Vanilla-Cake-Recipe-new-copy.jpg',
-      [new Ingredient('Meat', 10), new Ingredient('French Fries', 20)]
-    ),
-    new Recipe(
-      'Another test recipe',
-      'This is for test',
-      'https://preppykitchen.com/wp-content/uploads/2021/07/Vanilla-Cake-Recipe-new-copy.jpg',
-      [new Ingredient('Buns', 2), new Ingredient('Meat', 1)]
-    ),
-  ];
+  // private recipes: Recipe[] = [
+  //   new Recipe(
+  //     'A test recipe',
+  //     'This is for test',
+  //     'https://preppykitchen.com/wp-content/uploads/2021/07/Vanilla-Cake-Recipe-new-copy.jpg',
+  //     [new Ingredient('Meat', 10), new Ingredient('French Fries', 20)]
+  //   ),
+  //   new Recipe(
+  //     'Another test recipe',
+  //     'This is for test',
+  //     'https://preppykitchen.com/wp-content/uploads/2021/07/Vanilla-Cake-Recipe-new-copy.jpg',
+  //     [new Ingredient('Buns', 2), new Ingredient('Meat', 1)]
+  //   ),
+  // ];
+  recipes: Recipe[] = [];
 
   recipeChanged = new Subject<Recipe[]>();
 
   recipeSelected = new Subject<Recipe>();
+
+  setRecipes(recipes: Array<Recipe>) {
+    this.recipes = recipes;
+    this.recipeChanged.next(this.recipes.slice());
+  }
 
   getRecipes() {
     return this.recipes.slice();

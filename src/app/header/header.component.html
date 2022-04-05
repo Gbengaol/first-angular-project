@@ -14,13 +14,14 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a
-            class="nav-link"
-            routerLinkActive="active"
-            routerLink="recipes"
-            (click)="changeRoute('recipe')"
+        <li class="nav-item" *ngIf="isAuthenticated">
+          <a class="nav-link" routerLinkActive="active" routerLink="recipes"
             >Recipes</a
+          >
+        </li>
+        <li class="nav-item" *ngIf="!isAuthenticated">
+          <a class="nav-link" routerLinkActive="active" routerLink="auth"
+            >Authenticate</a
           >
         </li>
         <li class="nav-item">
@@ -28,13 +29,16 @@
             class="nav-link"
             routerLinkActive="active"
             routerLink="shopping-list"
-            (click)="changeRoute('shopping')"
             >Shopping List</a
           >
         </li>
       </ul>
       <ul class="navbar-nav mb-2 mb-lg-0">
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown" *ngIf="isAuthenticated">
+          <a class="nav-link" role="button" (click)="onLogout()"> Log Out </a>
+        </li>
+
+        <li class="nav-item dropdown" *ngIf="isAuthenticated">
           <a
             class="nav-link dropdown-toggle"
             id="navbarDropdown"
@@ -45,11 +49,18 @@
             Dropdown
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item">Save Data</a></li>
-            <li><a class="dropdown-item">Fetch Data</a></li>
+            <li>
+              <a class="dropdown-item" (click)="onSaveData()">Save Data</a>
+            </li>
+            <li>
+              <a class="dropdown-item" (click)="onFetchData()">Fetch Data</a>
+            </li>
           </ul>
         </li>
       </ul>
     </div>
   </div>
 </nav>
+<div class="alert alert-danger" style="display: block" *ngIf="error">
+  {{ error }}
+</div>
