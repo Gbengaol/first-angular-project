@@ -4,23 +4,11 @@ import { Ingredient } from 'src/app/shared/ingredient.model';
 import { ShoppingListService } from '../shopping-list/shopping-list.service';
 import { Subject } from 'rxjs';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class RecipeService {
   constructor(private shoppingListService: ShoppingListService) {}
-  // private recipes: Recipe[] = [
-  //   new Recipe(
-  //     'A test recipe',
-  //     'This is for test',
-  //     'https://preppykitchen.com/wp-content/uploads/2021/07/Vanilla-Cake-Recipe-new-copy.jpg',
-  //     [new Ingredient('Meat', 10), new Ingredient('French Fries', 20)]
-  //   ),
-  //   new Recipe(
-  //     'Another test recipe',
-  //     'This is for test',
-  //     'https://preppykitchen.com/wp-content/uploads/2021/07/Vanilla-Cake-Recipe-new-copy.jpg',
-  //     [new Ingredient('Buns', 2), new Ingredient('Meat', 1)]
-  //   ),
-  // ];
   recipes: Recipe[] = [];
 
   recipeChanged = new Subject<Recipe[]>();

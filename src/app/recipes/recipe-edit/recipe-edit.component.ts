@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormArray,
+  FormControl,
+  FormGroup,
+  Validators,
+  FormBuilder,
+} from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { RecipeService } from '../recipe.service';
 import { Recipe } from '../recipe.model';
@@ -17,7 +23,8 @@ export class RecipeEditComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private recipeService: RecipeService
+    private recipeService: RecipeService,
+    private formBuilder: FormBuilder
   ) {}
 
   ngOnInit(): void {
@@ -42,7 +49,7 @@ export class RecipeEditComponent implements OnInit {
       if (recipe['ingredients']) {
         for (const ingredient of recipe.ingredients) {
           recipeIngredients.push(
-            new FormGroup({
+            this.formBuilder.group({
               name: new FormControl(ingredient.name, Validators.required),
               amount: new FormControl(ingredient.amount, [
                 Validators.required,
@@ -54,7 +61,7 @@ export class RecipeEditComponent implements OnInit {
       }
     }
 
-    this.recipeForm = new FormGroup({
+    this.recipeForm = this.formBuilder.group({
       name: new FormControl(recipeName, Validators.required),
       imagePath: new FormControl(recipeImg, Validators.required),
       description: new FormControl(recipeDescription, Validators.required),
@@ -79,7 +86,7 @@ export class RecipeEditComponent implements OnInit {
 
   onAddIngredient() {
     (<FormArray>this.recipeForm.get('ingredients')).push(
-      new FormGroup({
+      this.formBuilder.group({
         name: new FormControl(null, Validators.required),
         amount: new FormControl(null, [
           Validators.required,
